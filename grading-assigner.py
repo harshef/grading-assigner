@@ -60,8 +60,7 @@ def alert_for_assignment(current_request, headers):
         logger.info("You have been assigned to grade a new submission!")
         logger.info("View it here: " + REVIEW_URL.format(sid=current_request['submission_id']))
         logger.info("=================================================")
-	message = client.messages.create(to="+917351819758", from_="+19732504689",
-	body='sid')
+        message = client.messages.create(to="+917351819758", from_="+19732504689", body=REVIEW_URL.format(sid=current_request['submission_id']))
         logger.info("Continuing to poll...")
         return None
     return current_request
@@ -180,4 +179,3 @@ if __name__ == "__main__":
         logger.setLevel(logging.DEBUG)
 
     request_reviews(args.token)
-
