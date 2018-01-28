@@ -60,7 +60,7 @@ def alert_for_assignment(current_request, headers):
         logger.info("=================================================")
         client.api.account.messages.create(to="+918755144262", from_="+15085895368", body=REVIEW_URL.format(sid=current_request['submission_id']))
         call = client.api.account.calls\
-      	 .create(to="+917351819758",  # Any phone number
+      	 .create(to="+918755144262",  # Any phone number
               	 from_="+15085895368", # Must be a valid Twilio number
               	  url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
         call.sid
