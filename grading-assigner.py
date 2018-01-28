@@ -58,7 +58,7 @@ def alert_for_assignment(current_request, headers):
         logger.info("You have been assigned to grade a new submission!")
         logger.info("View it here: " + REVIEW_URL.format(sid=current_request['submission_id']))
         logger.info("=================================================")
-        client.api.account.messages.create(to="+917351819758", from_="+15085895368", body=REVIEW_URL.format(sid=current_request['submission_id']))
+        client.api.account.messages.create(to="+918755144262", from_="+15085895368", body=REVIEW_URL.format(sid=current_request['submission_id']))
         call = client.api.account.calls\
       	 .create(to="+917351819758",  # Any phone number
               	 from_="+15085895368", # Must be a valid Twilio number
