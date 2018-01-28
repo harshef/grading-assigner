@@ -6,14 +6,13 @@ import logging
 import os
 import requests
 import time
-import pytz
 from twilio.rest import Client
+import pytz
 from dateutil import parser
 from datetime import datetime, timedelta
 
 utc = pytz.UTC
 
-# Script config
 BASE_URL = 'https://review-api.udacity.com/api/v1'
 CERTS_URL = '{}/me/certifications.json'.format(BASE_URL)
 ME_URL = '{}/me'.format(BASE_URL)
@@ -25,7 +24,6 @@ PUT_REQUEST_URL_TMPL = '{}/submission_requests/{}.json'
 REFRESH_URL_TMPL = '{}/submission_requests/{}/refresh.json'
 ASSIGNED_COUNT_URL = '{}/me/submissions/assigned_count.json'.format(BASE_URL)
 ASSIGNED_URL = '{}/me/submissions/assigned.json'.format(BASE_URL)
-
 
 account = "ACaf93c44805d9f4e4582c076c56e2c2cf"
 token = "c24ab76ade8dae7e5a61da8c5b9b2035"
@@ -60,13 +58,12 @@ def alert_for_assignment(current_request, headers):
         logger.info("You have been assigned to grade a new submission!")
         logger.info("View it here: " + REVIEW_URL.format(sid=current_request['submission_id']))
         logger.info("=================================================")
-        #message = client.messages.create(to="+917351819758", from_="+19732504689", body=REVIEW_URL.format(sid=current_request['submission_id']))
-	client.api.account.messages.create(to="+917351819758", from_="+15085895368", body=REVIEW_URL.format(sid=current_request['submission_id']))
-	call = client.api.account.calls\
-      	.create(to="+917351819758",  # Any phone number
-              	from_="+15085895368", # Must be a valid Twilio number
-              	url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
-	call.sid
+        client.api.account.messages.create(to="+917351819758", from_="+15085895368", body=REVIEW_URL.format(sid=current_request['submission_id']))
+        call = client.api.account.calls\
+      	 .create(to="+917351819758",  # Any phone number
+              	 from_="+15085895368", # Must be a valid Twilio number
+              	  url="http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
+        call.sid
         logger.info("Continuing to poll...")
         return None
     return current_request
@@ -97,7 +94,7 @@ def fetch_certified_pairs():
     logger.info("Requesting certifications...")
     me_resp = requests.get(ME_URL, headers=headers)
     me_resp.raise_for_status()
-    languages = me_resp.json()['application']['languages'] or ['en-us']
+    languages = me_resp.json()['mentor_languages'] or ['en-us']
 
     certs_resp = requests.get(CERTS_URL, headers=headers)
     certs_resp.raise_for_status()
